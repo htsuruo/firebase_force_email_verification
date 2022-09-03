@@ -37,7 +37,6 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_riverpod: ^2.0.0-dev.9
-  flutter_signin_button:
   flutterfire_ui:
   gap:
   go_router:
