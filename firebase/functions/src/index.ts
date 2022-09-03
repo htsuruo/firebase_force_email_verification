@@ -16,7 +16,7 @@ export const beforeCreate = functions
     const email = user.email
     if (email && !user.emailVerified) {
       const link = await admin.auth().generateEmailVerificationLink(email)
-      sendCustomVerificationEmail({ user, link, locale })
+      await sendCustomVerificationEmail({ user, link, locale })
     }
   })
 
