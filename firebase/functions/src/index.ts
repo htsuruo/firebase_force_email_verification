@@ -8,7 +8,7 @@ import * as functions from 'firebase-functions'
 
 export const beforeCreate = functions.auth
   .user()
-  .beforeCreate(async (user, context) => {
+  .beforeCreate(async (user, _) => {
     if (user.email && !user.emailVerified) {
       // 本来は確認用のメールを送信するべきだがSMTPサーバを用意したりメール送信の処理は本質ではないのでなので省略
       throw new functions.auth.HttpsError(
