@@ -10,7 +10,7 @@ module.exports = {
     'plugin:import/warnings',
     'plugin:import/typescript',
     'google',
-    'plugin:@typescript-eslint/recommended',
+    // 'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
   ],
   parser: '@typescript-eslint/parser',
@@ -27,7 +27,7 @@ module.exports = {
     'prettier',
   ],
   rules: {
-    'prettier/prettier': ['error', {singleQuote: true, semi: false, tabWidth: 2}],
+    'prettier/prettier': ['error', {singleQuote: true, semi: false}],
     'camelcase': ['warn', {properties: 'never'}],
     'import/no-unresolved': 0,
   },
