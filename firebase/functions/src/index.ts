@@ -32,7 +32,6 @@ export const beforeSignIn = functions.auth.user().beforeSignIn((user, _) => {
 export const sendTestMail = functions
   .runWith({ secrets: ['GMAIL_USER', 'GMAIL_PASS'] })
   .https.onRequest(async (req, resp): Promise<SentMessageInfo> => {
-    functions.logger.warn(process.env.GMAIL_USER)
     await MailSender.instance.send({
       to: req.body.email,
       subject: 'Test Mail',
