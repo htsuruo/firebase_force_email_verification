@@ -9,6 +9,7 @@ import * as functions from 'firebase-functions'
 export const beforeCreate = functions.auth
   .user()
   .beforeCreate(async (user, _) => {
+    functions.logger.info('beforeCreate trigger!')
     if (user.email && !user.emailVerified) {
       // 本来は確認用のメールを送信するべきだがSMTPサーバを用意したりメール送信の処理は本質ではないのでなので省略
       throw new functions.auth.HttpsError(
@@ -19,6 +20,7 @@ export const beforeCreate = functions.auth
   })
 
 export const beforeSignIn = functions.auth.user().beforeSignIn((user, _) => {
+  functions.logger.info('beforeSignIn trigger!')
   if (user.email && !user.emailVerified) {
     throw new functions.auth.HttpsError(
       'invalid-argument',
