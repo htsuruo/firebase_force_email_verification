@@ -1,0 +1,13 @@
+{
+  // ref. https://medium.com/firebase-developers/debugging-firebase-functions-in-vs-code-a1caf22db0b2
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "Attach",
+      "port": 9229,
+      "restart": true
+    }
+  ]
+}
