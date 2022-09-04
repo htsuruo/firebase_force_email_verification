@@ -5,8 +5,8 @@ import { createTransport, SendMailOptions, SentMessageInfo } from 'nodemailer'
 import { AuthUserRecord } from 'firebase-functions/lib/common/providers/identity'
 
 admin.initializeApp()
-// const bundleId = 'com.tsuruoka.firebaseForceEmailVerification'
-// const packageName = 'com.tsuruoka.firebase_force_email_verification'
+const bundleId = 'com.tsuruoka.firebaseForceEmailVerification'
+const packageName = 'com.tsuruoka.firebase_force_email_verification'
 
 export const beforeCreate = functions
   .runWith({ secrets: ['GMAIL_USER', 'GMAIL_PASS'] })
@@ -15,7 +15,12 @@ export const beforeCreate = functions
     const locale = context.locale
     const email = user.email
     if (email && !user.emailVerified) {
-      const link = await admin.auth().generateEmailVerificationLink(email)
+      const link = await admin.auth().generateEmailVerificationLink(email, {
+        url: 'https://playground-c8a87.firebaseapp.com/__/auth/action?mode=action&oobCode=code',
+        handleCodeInApp: true,
+        iOS: { bundleId },
+        android: { packageName },
+      })
       await sendCustomVerificationEmail({ user, link, locale })
     }
   })
@@ -32,6 +37,7 @@ export const beforeSignIn = functions.auth.user().beforeSignIn((user, _) => {
 export const sendTestMail = functions
   .runWith({ secrets: ['GMAIL_USER', 'GMAIL_PASS'] })
   .https.onRequest(async (req, resp): Promise<SentMessageInfo> => {
+    functions.logger.info(`GMAIL_USER: ${process.env.GMAIL_USER}`)
     await MailSender.instance.send({
       to: req.body.email,
       subject: 'Test Mail',
