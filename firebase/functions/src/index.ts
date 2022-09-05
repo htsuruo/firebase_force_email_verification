@@ -16,10 +16,11 @@ export const beforeCreate = functions
     const email = user.email
     if (email && !user.emailVerified) {
       const link = await admin.auth().generateEmailVerificationLink(email, {
-        url: 'https://playground-c8a87.firebaseapp.com/__/auth/action?mode=action&oobCode=code',
+        url: 'https://firebaseforceemailverification.page.link/6SuK',
         handleCodeInApp: true,
         iOS: { bundleId },
         android: { packageName },
+        dynamicLinkDomain: 'firebaseforceemailverification.page.link',
       })
       await sendCustomVerificationEmail({ user, link, locale })
     }
@@ -32,6 +33,16 @@ export const beforeSignIn = functions.auth.user().beforeSignIn((user, _) => {
       `"${user.email}" needs to be verified before access is granted.`
     )
   }
+})
+
+// Emulator Suiteのダッシュボードなどから普通にユーザー登録すると呼ばれる
+export const onCreate = functions.auth.user().onCreate(async (_, __) => {
+  functions.logger.info('onCreate')
+})
+
+// Emulator Suiteのダッシュボードなどから普通にユーザー削除すると呼ばれる
+export const onDelete = functions.auth.user().onDelete(async (_, __) => {
+  functions.logger.info('onDelete')
 })
 
 export const sendTestMail = functions
