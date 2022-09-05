@@ -1,5 +1,6 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
+import * as util from 'util'
 
 import { createTransport, SendMailOptions, SentMessageInfo } from 'nodemailer'
 import { AuthUserRecord } from 'firebase-functions/lib/common/providers/identity'
@@ -12,6 +13,9 @@ export const beforeCreate = functions
   .runWith({ secrets: ['GMAIL_USER', 'GMAIL_PASS'] })
   .auth.user()
   .beforeCreate(async (user, context) => {
+    functions.logger.info(
+      `user: ${util.inspect(user)}, context: ${util.inspect(context)}`
+    )
     const locale = context.locale
     const email = user.email
     if (email && !user.emailVerified) {
