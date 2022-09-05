@@ -81,10 +81,12 @@ async function sendCustomVerificationEmail(param: {
   locale: string | undefined
 }): Promise<SentMessageInfo> {
   // TODO(tsuruoka): 本来はlocaleに応じて表示言語を切り替えるだが省略
+  const displayName = param.user.displayName
+  const username = displayName ? `${displayName} 様` : 'ユーザー 様'
   const mail: Mail = {
     to: param.user.email!,
     subject: 'メールアドレスの確認',
-    text: `${param.user.displayName} 様
+    text: `${username}
 
 メールアドレスを確認するには、次のリンクをクリックしてください。
 
