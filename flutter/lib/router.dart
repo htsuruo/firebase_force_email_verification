@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_force_email_verification/email_verification_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -39,12 +40,18 @@ class RouterNotifier extends ChangeNotifier {
 
   static const _home = '/';
   static const _login = '/login';
+  static const _emailVerification = '/${EmailVerificationPage.routeName}';
 
   List<GoRoute> get _routes => [
         GoRoute(
           name: 'home',
           path: _home,
           builder: (context, state) => const HomePage(),
+        ),
+        GoRoute(
+          name: EmailVerificationPage.routeName,
+          path: _emailVerification,
+          builder: (context, state) => const EmailVerificationPage(),
         ),
         GoRoute(
           name: 'login',

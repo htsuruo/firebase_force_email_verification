@@ -26,13 +26,13 @@ export const beforeCreate = functions
         android: { packageName },
         dynamicLinkDomain: 'firebaseforceemailverification.page.link',
       })
-      await sendCustomVerificationEmail({ user, link, locale })
+      return await sendCustomVerificationEmail({ user, link, locale })
 
-      // クライアント側でブロッキング関数によって弾かれたか否かを判定できるようにthrowする
-      throw new functions.auth.HttpsError(
-        'permission-denied',
-        `A confirmation email sent to ${email}. Email address verification is required.`
-      )
+      // // クライアント側でブロッキング関数によって弾かれたか否かを判定できるようにthrowする
+      // throw new functions.auth.HttpsError(
+      //   'invalid-argument',
+      //   `Unverified email ${email}: a confirmation email sent. Email address verification is required.`
+      // )
     }
   })
 
