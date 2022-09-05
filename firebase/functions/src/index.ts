@@ -27,6 +27,12 @@ export const beforeCreate = functions
         dynamicLinkDomain: 'firebaseforceemailverification.page.link',
       })
       await sendCustomVerificationEmail({ user, link, locale })
+
+      // クライアント側でブロッキング関数によって弾かれたか否かを判定できるようにthrowする
+      throw new functions.auth.HttpsError(
+        'permission-denied',
+        `A confirmation email sent to ${email}. Email address verification is required.`
+      )
     }
   })
 
