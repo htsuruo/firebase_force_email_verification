@@ -1,3 +1,4 @@
+import 'package:app_links/app_links.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_force_email_verification/logger.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,8 @@ class LoginPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final link = ref.watch(appLinksProvier).value;
+    final link2 = ref.watch(appLinksLatestProvier).value;
     return Scaffold(
       appBar: AppBar(title: const Text('Sign Up')),
       body: Center(
@@ -40,3 +43,7 @@ class LoginPage extends ConsumerWidget {
     );
   }
 }
+
+final appLinksProvier = StreamProvider((ref) => AppLinks().uriLinkStream);
+final appLinksLatestProvier =
+    FutureProvider((ref) => AppLinks().getLatestAppLink());
