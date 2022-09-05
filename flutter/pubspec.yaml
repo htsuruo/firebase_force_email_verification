@@ -30,6 +30,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   adaptive_dialog:
+  app_links:
   collection:
   cupertino_icons:
   firebase_auth:

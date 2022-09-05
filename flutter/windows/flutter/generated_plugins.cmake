@@ -3,6 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  app_links_windows
   desktop_webview_auth
   dynamic_color
 )
