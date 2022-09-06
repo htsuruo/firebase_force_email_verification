@@ -11,7 +11,7 @@ class LoginPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Sign Up')),
+      appBar: AppBar(title: const Text('Sign In')),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 44),
@@ -28,6 +28,11 @@ class LoginPage extends ConsumerWidget {
                           ),
                         );
                 logger.info(credential);
+                ref
+                    .read(scaffoldMessengerKey)
+                    .currentState!
+                    .showMessage('🎉 SignIn successfully');
+                return;
                 // Blocking Functionsで弾かれた場合はFirebaseAuthExceptionでcatchできるものの
                 // `code`はundefinedになってしまっていて、全てmessageにStringで入ってしまうので注意。
                 // 改善されるとは思いつつ。
@@ -41,7 +46,7 @@ class LoginPage extends ConsumerWidget {
                   ref
                       .read(scaffoldMessengerKey)
                       .currentState!
-                      .showMessage('BLOCKING_FUNCTION_ERROR');
+                      .showMessage('🚥 BLOCKING_FUNCTION_ERROR');
                   return;
                 }
               }
