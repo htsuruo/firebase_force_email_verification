@@ -40,7 +40,6 @@ class RouterNotifier extends ChangeNotifier {
 
   static const _home = '/';
   static const _login = '/login';
-  static const _emailVerification = '/${EmailVerificationPage.routeName}';
 
   List<GoRoute> get _routes => [
         GoRoute(
@@ -50,7 +49,7 @@ class RouterNotifier extends ChangeNotifier {
         ),
         GoRoute(
           name: EmailVerificationPage.routeName,
-          path: _emailVerification,
+          path: '/${EmailVerificationPage.routeName}',
           builder: (context, state) => const EmailVerificationPage(),
         ),
         GoRoute(

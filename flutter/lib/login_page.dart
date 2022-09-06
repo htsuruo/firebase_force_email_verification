@@ -15,7 +15,9 @@ class LoginPage extends ConsumerWidget {
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 44),
+          // TODO(tsuruoka): SignUp / SignInを切り替えられるようにする。
           child: EmailForm(
+            // action: AuthAction.signUp,
             action: AuthAction.signIn,
             onSubmit: (email, password) async {
               try {
